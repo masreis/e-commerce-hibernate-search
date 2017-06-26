@@ -197,27 +197,27 @@ public class UtilIndice {
 	 * @experimental
 	 * 
 	 */
-	public Document highlight(Document doc, int docID,
-			Query query) throws IOException {
-		// Criar campo com highlight
-		IndexSearcher searcher = sm.acquire();
-		try {
-			FastVectorHighlighter fhl =
-					new FastVectorHighlighter();
-			FieldQuery fq = fhl.getFieldQuery(query);
-			String fragHighlight = fhl.getBestFragment(fq,
-					searcher.getIndexReader(), docID,
-					"textoCompleto",
-					doc.get("textoCompleto").length());
-			if (fragHighlight == null)
-				fragHighlight = doc.get("textoCompleto");
-			doc.add(new StringField("textoCompleto.hl",
-					fragHighlight, Store.NO));
-			return doc;
-		} finally {
-			sm.release(searcher);
-		}
-	}
+//	public Document highlight(Document doc, int docID,
+//			Query query) throws IOException {
+//		// Criar campo com highlight
+//		IndexSearcher searcher = sm.acquire();
+//		try {
+//			FastVectorHighlighter fhl =
+//					new FastVectorHighlighter();
+//			FieldQuery fq = fhl.getFieldQuery(query);
+//			String fragHighlight = fhl.getBestFragment(fq,
+//					searcher.getIndexReader(), docID,
+//					"textoCompleto",
+//					doc.get("textoCompleto").length());
+//			if (fragHighlight == null)
+//				fragHighlight = doc.get("textoCompleto");
+//			doc.add(new StringField("textoCompleto.hl",
+//					fragHighlight, Store.NO));
+//			return doc;
+//		} finally {
+//			sm.release(searcher);
+//		}
+//	}
 
 	// private String removeAcentos(String texto) {
 	// String textoSemAcento = Normalizer
