@@ -6,9 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 import net.marcoreis.ecommerce.util.IPersistente;
 
 @Entity
+@Indexed
 @NamedQuery(name = "categoria.consultaPeloNome", query = "select c from Categoria c where c.nome like :nome")
 public class Categoria implements IPersistente {
 	private static final long serialVersionUID =
@@ -16,6 +23,8 @@ public class Categoria implements IPersistente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String nome;
 
 	public Long getId() {

@@ -17,11 +17,10 @@
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
 
-			<!-- Configurações do Full-text search -->
-			<!-- <property name="hibernate.search.default.directory_provider" -->
-			<!-- value="org.hibernate.search.store.FSDirectoryProvider" /> -->
-			<!-- <property name="hibernate.search.default.indexBase" value="/var/lucene/indexes" 
-				/> -->
+			<!-- Configurações do Hibernate Search -->
+			<property name="hibernate.search.default.indexBase" value="/var/lucene/indice-ecommerce" />
+			<property name="hibernate.search.default.directory_provider"
+				value="org.hibernate.search.store.FSDirectoryProvider" />
 
 		</properties>
 	</persistence-unit>
