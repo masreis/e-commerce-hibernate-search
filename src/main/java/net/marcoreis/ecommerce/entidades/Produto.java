@@ -20,8 +20,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.Indexed;
+
 import net.marcoreis.ecommerce.util.IPersistente;
 
+@Indexed
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "produto.consultaTotal", query = "select count(p) from Produto p"),

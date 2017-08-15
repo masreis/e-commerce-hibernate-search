@@ -16,9 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.Indexed;
+
 import net.marcoreis.ecommerce.util.IPersistente;
 
 @Entity
+@Indexed
 public class Venda implements IPersistente {
 	private static final long serialVersionUID =
 			-4519913495960906821L;

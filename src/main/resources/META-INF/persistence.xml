@@ -18,9 +18,9 @@
 			<property name="javax.persistence.jdbc.password" value="root" />
 
 			<!-- Configurações do Hibernate Search -->
-			<property name="hibernate.search.default.indexBase" value="/var/lucene/indice-ecommerce" />
+			<property name="hibernate.search.default.indexBase" value="/home/marco/indice-ecommerce" />
 			<property name="hibernate.search.default.directory_provider"
-				value="org.hibernate.search.store.FSDirectoryProvider" />
+				value="org.hibernate.search.store.impl.FSDirectoryProvider" />
 
 		</properties>
 	</persistence-unit>

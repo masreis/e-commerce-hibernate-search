@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.search.annotations.Indexed;
+
 @Entity
+@Indexed
 @NamedQuery(name = "usuario.consultaAcessoDia", query = "select c from Cliente c where c.ultimoLogin = :data")
 public class Cliente implements Serializable {
 	@Id
@@ -19,7 +22,8 @@ public class Cliente implements Serializable {
 	private String email;
 	private String nome;
 	private Date ultimoLogin;
-	private static final long serialVersionUID = 5073165906294726127L;
+	private static final long serialVersionUID =
+			5073165906294726127L;
 
 	@Column(unique = true, nullable = false)
 	private String cpfCnpj;
