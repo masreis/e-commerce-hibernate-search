@@ -42,5 +42,9 @@ public class CategoriaTest {
 				ftem.createFullTextQuery(query, Categoria.class);
 		List<Categoria> lista = ftQuery.getResultList();
 		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Categorias:");
+		for (Categoria c : lista) {
+			System.out.println(c.getNome());
+		}
 	}
 }
