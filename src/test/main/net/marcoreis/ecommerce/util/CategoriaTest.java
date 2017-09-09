@@ -32,14 +32,17 @@ public class CategoriaTest {
 	}
 
 	@Test
-	public void testBuscaCategoria() {
+	public void testBuscaCategoriaPeloNome() {
+		// QueryBuilder
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
 						.forEntity(Categoria.class).get();
+		// Query
 		Query query = qb.keyword().onField("nome")
 				.matching("jogos").createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Categoria.class);
+		// Resultado da consulta
 		List<Categoria> lista = ftQuery.getResultList();
 		Assert.assertTrue(lista.size() > 0);
 		System.out.println("Categorias:");
@@ -47,4 +50,5 @@ public class CategoriaTest {
 			System.out.println(c.getNome());
 		}
 	}
+
 }

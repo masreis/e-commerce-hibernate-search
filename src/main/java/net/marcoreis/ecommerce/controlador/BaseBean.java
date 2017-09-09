@@ -10,10 +10,12 @@ import org.apache.log4j.Logger;
 import net.marcoreis.ecommerce.entidades.Cliente;
 
 public class BaseBean implements Serializable {
-	private static final long serialVersionUID = -5895396595360064610L;
-	protected static final Logger logger = Logger
-			.getLogger(BaseBean.class);
-	protected static final String MENSAGEM_SUCESSO_GRAVACAO = "Dados gravados com sucesso";
+	private static final long serialVersionUID =
+			-5895396595360064610L;
+	protected static final Logger logger =
+			Logger.getLogger(BaseBean.class);
+	protected static final String MENSAGEM_SUCESSO_GRAVACAO =
+			"Dados gravados com sucesso";
 	protected Cliente cliente;
 
 	protected void infoMsg(String message) {
@@ -23,9 +25,9 @@ public class BaseBean implements Serializable {
 
 	protected void errorMsg(Throwable t) {
 		logger.error(t);
-		FacesMessage msg = new FacesMessage(
-				FacesMessage.SEVERITY_ERROR, t.getMessage(),
-				"Erro");
+		FacesMessage msg =
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						t.getMessage(), "Erro");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
