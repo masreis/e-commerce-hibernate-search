@@ -1,4 +1,4 @@
-package net.marcoreis.ecommerce.util;
+package net.marcoreis.ecommerce.entidades;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.marcoreis.ecommerce.entidades.Categoria;
+import net.marcoreis.ecommerce.util.JPAUtil;
 
 public class CategoriaTest {
 	private static EntityManager em;
@@ -32,7 +32,7 @@ public class CategoriaTest {
 	}
 
 	@Test
-	public void testBuscaCategoriaPeloNome() {
+	public void testBuscaPeloNome() {
 		// QueryBuilder
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()

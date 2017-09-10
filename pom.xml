@@ -101,15 +101,11 @@
 		<!-- <version>${hibernate.version}</version> -->
 		<!-- </dependency> -->
 
-
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tika</groupId> -->
-		<!-- <artifactId>tika-parsers</artifactId> -->
-		<!-- <version>1.4</version> -->
-		<!-- </dependency> -->
-
-
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.slf4j</groupId> -->

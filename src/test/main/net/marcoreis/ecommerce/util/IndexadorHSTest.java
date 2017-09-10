@@ -22,19 +22,19 @@ public class IndexadorHSTest {
 		indexador.close();
 	}
 
-	// @Test
+//	@Test
 	public void testIndexarCategoria()
 			throws InterruptedException {
 		indexador.indexar(Categoria.class);
 	}
 
-	@Test
+	// @Test
 	public void testIndexarCliente()
 			throws InterruptedException {
 		indexador.indexar(Cliente.class);
 	}
 
-	// @Test
+	@Test
 	public void testIndexarProduto()
 			throws InterruptedException {
 		indexador.indexar(Produto.class);
