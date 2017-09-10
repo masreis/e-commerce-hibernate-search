@@ -31,7 +31,7 @@ public class ProdutoTest {
 		em.close();
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPelaEspec() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -51,12 +51,16 @@ public class ProdutoTest {
 		}
 	}
 
-	// @Test
-	public void testBuscaPeloNome() {
+	@Test
+	public void testBuscaPorIntervaloPreco() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
 						.forEntity(Produto.class).get();
-		Query query = qb.range().onField("preco").above(100)
+		Query queryAbove = qb.range().onField("preco").above(100)
+				.createQuery();
+		Query queryBelow = qb.range().onField("preco").below(110)
+				.createQuery();
+		Query query = qb.bool().must(queryAbove).must(queryBelow)
 				.createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Produto.class);
@@ -69,4 +73,22 @@ public class ProdutoTest {
 		}
 	}
 
+	// @Test
+	public void testBuscaPelaCategoria() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query query = qb.keyword().onField("categorias.nome")
+				.ignoreFieldBridge().matching("periféricos")
+				.createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos:");
+		for (Produto p : lista) {
+			System.out
+					.println(p.getNome() + " - " + p.getPreco());
+		}
+	}
 }
