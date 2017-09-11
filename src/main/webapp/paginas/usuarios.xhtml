@@ -20,8 +20,9 @@
 			<p:panel header="Usuários"
 				style="margin-left: 24%; margin-right: 24%;">
 
-				<p:dataTable var="item" value="#{usuarioBean.usuarios}"
-					id="tabelaUsuarios">
+				<p:dataTable var="item" value="#{clienteBean.clientes}"
+					id="tabelaUsuarios" rows="10" paginator="true"
+					paginatorAlwaysVisible="false">
 					<p:column headerText="Nome">
 						<h:outputText value="#{item.nome}" />
 					</p:column>
@@ -31,9 +32,9 @@
 					<p:column style="width: 80px;">
 						<p:commandButton icon="ui-icon-pencil" ajax="false"
 							action="usuario?faces-redirect=true&amp;includeViewParams=true">
-							<f:param name="id" value="#{item.id}" />
-							<f:setPropertyActionListener target="#{usuarioBean.usuario.id}"
-								value="#{item.id}" />
+							<!--<f:param name="id" value="#{item.id}" /> -->
+							<f:setPropertyActionListener target="#{clienteBean.cliente}"
+								value="#{item}" />
 						</p:commandButton>
 						<p:commandButton icon="ui-icon-trash" />
 					</p:column>

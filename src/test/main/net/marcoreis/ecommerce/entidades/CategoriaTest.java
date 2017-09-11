@@ -1,4 +1,4 @@
-package net.marcoreis.ecommerce.util;
+package net.marcoreis.ecommerce.entidades;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.marcoreis.ecommerce.entidades.Categoria;
+import net.marcoreis.ecommerce.util.JPAUtil;
 
 public class CategoriaTest {
 	private static EntityManager em;
@@ -32,15 +32,23 @@ public class CategoriaTest {
 	}
 
 	@Test
-	public void testBuscaCategoria() {
+	public void testBuscaPeloNome() {
+		// QueryBuilder
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
 						.forEntity(Categoria.class).get();
+		// Query
 		Query query = qb.keyword().onField("nome")
 				.matching("jogos").createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Categoria.class);
+		// Resultado da consulta
 		List<Categoria> lista = ftQuery.getResultList();
 		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Categorias:");
+		for (Categoria c : lista) {
+			System.out.println(c.getNome());
+		}
 	}
+
 }

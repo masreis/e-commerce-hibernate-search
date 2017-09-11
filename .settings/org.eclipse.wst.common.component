@@ -5,7 +5,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/main"/>
-        <property name="context-root" value="net.marcoreis"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <property name="context-root" value="e-commerce-hibernate-search"/>
         <property name="java-output-path" value="/e-commerce-hibernate-search/target/classes"/>
     </wb-module>
 </project-modules>

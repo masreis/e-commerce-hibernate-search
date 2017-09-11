@@ -20,7 +20,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TikaBridge;
 
 import net.marcoreis.ecommerce.util.IPersistente;
 
@@ -37,22 +41,34 @@ public class Produto implements IPersistente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Field(store = Store.YES)
 	private String nome;
+
+	@Field(store = Store.YES)
 	private String descricao;
+
 	@Column(precision = 10, scale = 2)
+	@Field(store = Store.YES)
 	private BigDecimal preco;
+
+	@Field(store = Store.YES)
 	private boolean ativo;
 
 	@Lob
 	@Column(length = 1024 * 1024 * 5)
+	@Field(store = Store.YES)
+	@TikaBridge
 	private byte[] especificacaoFabricante;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ProdutoCategoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@IndexedEmbedded
 	private Set<Categoria> categorias =
 			new HashSet<Categoria>(0);
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Field(store = Store.YES)
 	private Date dataAtualizacao;
 
 	public Long getId() {

@@ -23,25 +23,24 @@
 				style="margin-left: 24%; margin-right: 24%;">
 
 				<p:dataTable var="item" value="#{produtoBean.produtos}" rows="10"
-					paginator="true" paginatorAlwaysVisible="false" id="tabelaProdutos"
-					sortBy="#{item.nome}">
-					<p:column headerText="Nome" sortBy="#{item.nome}">
+					paginator="true" paginatorAlwaysVisible="false" id="tabelaProdutos">
+					<p:column headerText="Nome">
 						<h:outputText value="#{item.nome}" />
 					</p:column>
-					<p:column headerText="Preço" sortBy="#{item.preco}">
+					<p:column headerText="Preço">
 						<h:outputText value="#{item.preco}">
 							<f:convertNumber locale="pt_BR" type="currency" />
 						</h:outputText>
 					</p:column>
 					<p:column headerText="Categoria">
-<!-- 						<h:outputText value="#{item.categorias}" /> -->
+						<!-- <h:outputText value="#{item.categorias}" /> -->
 					</p:column>
 					<p:column style="width: 90px;">
 						<p:commandButton type="submit" icon="ui-icon-pencil"
 							action="produto?faces-redirect=true&amp;includeViewParams=true"
 							ajax="false">
-							<f:setPropertyActionListener value="#{item}"
-								target="#{produtoBean.produto}" />
+							<f:setPropertyActionListener target="#{produtoBean.produto}"
+								value="#{item}" />
 						</p:commandButton>
 
 						<p:commandButton icon="ui-icon-trash"

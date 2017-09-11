@@ -12,9 +12,11 @@ import net.marcoreis.ecommerce.negocio.CategoriaService;
 @ManagedBean
 @ViewScoped
 public class CategoriaBean extends BaseBean {
-	private static final long serialVersionUID = 861905629535769221L;
+	private static final long serialVersionUID =
+			861905629535769221L;
 	private Categoria categoria;
-	private CategoriaService categoriaService = new CategoriaService();
+	private CategoriaService categoriaService =
+			new CategoriaService();
 	private Collection<Categoria> categorias;
 
 	public void setCategoria(Categoria categoria) {
