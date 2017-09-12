@@ -21,10 +21,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TikaBridge;
+import org.hibernate.search.bridge.builtin.BigDecimalBridge;
 
 import net.marcoreis.ecommerce.util.IPersistente;
 
@@ -50,6 +53,8 @@ public class Produto implements IPersistente {
 
 	@Column(precision = 10, scale = 2)
 	@Field(store = Store.YES)
+//	@NumericField
+	// @FieldBridge(impl = BigDecimalBridge.class)
 	private BigDecimal preco;
 
 	@Field(store = Store.YES)
