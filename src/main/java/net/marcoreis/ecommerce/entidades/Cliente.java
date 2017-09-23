@@ -21,7 +21,8 @@ import net.marcoreis.ecommerce.util.IPersistente;
 
 @Entity
 @Indexed
-@NamedQuery(name = "usuario.consultaAcessoDia", query = "select c from Cliente c where c.ultimoLogin = :data")
+@NamedQuery(name = "usuario.consultaAcessoDia",
+		query = "select c from Cliente c where c.ultimoLogin = :data")
 public class Cliente implements IPersistente {
 	private static final long serialVersionUID =
 			5073165906294726127L;
@@ -37,7 +38,8 @@ public class Cliente implements IPersistente {
 	private String nome;
 
 	@Field(analyze = Analyze.NO, store = Store.YES)
-	@DateBridge(resolution = Resolution.SECOND, encoding = EncodingType.STRING)
+	@DateBridge(resolution = Resolution.SECOND,
+			encoding = EncodingType.STRING)
 	private Date ultimoLogin;
 
 	@Column(unique = true, nullable = false)
