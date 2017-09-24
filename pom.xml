@@ -113,9 +113,6 @@
 		<!-- <version>1.7.5</version> -->
 		<!-- </dependency> -->
 
-
-
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

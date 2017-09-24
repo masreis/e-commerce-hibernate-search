@@ -29,14 +29,18 @@ import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TikaBridge;
 import org.hibernate.search.bridge.builtin.BigDecimalBridge;
 
+import net.marcoreis.ecommerce.util.BigDecimalNumericFieldBridge;
 import net.marcoreis.ecommerce.util.IPersistente;
 
 @Indexed
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "produto.consultaTotal", query = "select count(p) from Produto p"),
-		@NamedQuery(name = "produto.consultaPorDescricao", query = "select p from Produto p where p.descricao like :descricaoParcial"),
-		@NamedQuery(name = "produto.consultaPorIntervaloPreco", query = "select p from Produto p where p.preco >= ?1 and p.preco <= ?2") })
+		@NamedQuery(name = "produto.consultaTotal",
+				query = "select count(p) from Produto p"),
+		@NamedQuery(name = "produto.consultaPorDescricao",
+				query = "select p from Produto p where p.descricao like :descricaoParcial"),
+		@NamedQuery(name = "produto.consultaPorIntervaloPreco",
+				query = "select p from Produto p where p.preco >= ?1 and p.preco <= ?2") })
 public class Produto implements IPersistente {
 	private static final long serialVersionUID =
 			3206252406240046848L;
@@ -53,8 +57,10 @@ public class Produto implements IPersistente {
 
 	@Column(precision = 10, scale = 2)
 	@Field(store = Store.YES)
-//	@NumericField
+	@Field(store = Store.YES, name = "precoPoint")
+	@NumericField(forField = "precoPoint")
 	// @FieldBridge(impl = BigDecimalBridge.class)
+	@FieldBridge(impl = BigDecimalNumericFieldBridge.class)
 	private BigDecimal preco;
 
 	@Field(store = Store.YES)
@@ -67,7 +73,10 @@ public class Produto implements IPersistente {
 	private byte[] especificacaoFabricante;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ProdutoCategoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@JoinTable(name = "ProdutoCategoria",
+			joinColumns = @JoinColumn(name = "produto_id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "categoria_id"))
 	@IndexedEmbedded
 	private Set<Categoria> categorias =
 			new HashSet<Categoria>(0);
