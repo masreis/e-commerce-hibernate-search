@@ -35,15 +35,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/home/marco/.m2/repository/org/hibernate/hibernate-search-engine/5.7.0.Final/hibernate-search-engine-5.7.0.Final.jar" sourcepath="/home/marco/.m2/repository/org/hibernate/hibernate-search-engine/5.7.0.Final/hibernate-search-engine-5.7.0.Final-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="org.eclipse.jst.component.archivename" value="hibernate-search-engine-5.7.0.Final.jar"/>
-			<attribute name="maven.groupId" value="org.hibernate"/>
-			<attribute name="maven.artifactId" value="hibernate-search-engine"/>
-			<attribute name="maven.version" value="5.7.0.Final"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
