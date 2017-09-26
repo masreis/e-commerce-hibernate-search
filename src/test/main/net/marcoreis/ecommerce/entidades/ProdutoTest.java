@@ -1,7 +1,5 @@
 package net.marcoreis.ecommerce.entidades;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,14 +28,10 @@ public class ProdutoTest {
 	public static void inicializar() {
 		em = JPAUtil.getInstance().getEntityManager();
 		ftem = Search.getFullTextEntityManager(em);
-		precoMinimo = new BigDecimal(
-				ThreadLocalRandom.current().nextDouble(500))
-						.setScale(2, RoundingMode.HALF_UP)
-						.doubleValue();
-		precoMaximo = precoMinimo + new BigDecimal(
-				ThreadLocalRandom.current().nextDouble(20))
-						.setScale(2, RoundingMode.HALF_UP)
-						.doubleValue();
+		precoMinimo =
+				ThreadLocalRandom.current().nextDouble(500);
+		precoMaximo = precoMinimo
+				+ ThreadLocalRandom.current().nextDouble(20);
 	}
 
 	@AfterClass
@@ -47,7 +41,7 @@ public class ProdutoTest {
 		em.close();
 	}
 
-	// @Test
+//	@Test
 	public void testBuscaPelaEspec() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -67,10 +61,10 @@ public class ProdutoTest {
 		}
 	}
 
-	@Test
-	public void testBuscaPorIntervaloPoint() {
+//	@Test
+	public void testBuscaPorIntervaloNRQ() {
 		NumericRangeQuery<Double> query =
-				NumericRangeQuery.newDoubleRange("precoPoint",
+				NumericRangeQuery.newDoubleRange("preco",
 						precoMinimo, precoMaximo, true, true);
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Produto.class);
@@ -84,8 +78,8 @@ public class ProdutoTest {
 		System.out.println("==================");
 	}
 
-	@Test
-	public void testBuscaPorIntervalo() {
+//	@Test
+	public void testBuscaPorIntervaloAboveBelow() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
 						.forEntity(Produto.class).get();
@@ -95,6 +89,25 @@ public class ProdutoTest {
 				.below(precoMaximo).createQuery();
 		Query query = qb.bool().must(queryAbove).must(queryBelow)
 				.createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos:");
+		for (Produto p : lista) {
+			System.out
+					.println(p.getNome() + " - " + p.getPreco());
+		}
+		System.out.println("==================");
+	}
+
+	@Test
+	public void testBuscaPorIntervaloFromTo() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query query = qb.range().onField("preco")
+				.from(precoMinimo).to(precoMaximo).createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Produto.class);
 		List<Produto> lista = ftQuery.getResultList();
@@ -121,8 +134,7 @@ public class ProdutoTest {
 		Assert.assertTrue(lista.size() > 0);
 		System.out.println("Produtos:");
 		for (Produto p : lista) {
-			System.out
-					.println(p.getNome() + " - " + p.getPreco());
+			System.out.println(p.getNome());
 		}
 	}
 }

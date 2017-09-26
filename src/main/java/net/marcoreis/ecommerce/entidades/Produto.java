@@ -27,7 +27,6 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TikaBridge;
-import org.hibernate.search.bridge.builtin.BigDecimalBridge;
 
 import net.marcoreis.ecommerce.util.BigDecimalNumericFieldBridge;
 import net.marcoreis.ecommerce.util.IPersistente;
@@ -57,9 +56,7 @@ public class Produto implements IPersistente {
 
 	@Column(precision = 10, scale = 2)
 	@Field(store = Store.YES)
-	@Field(store = Store.YES, name = "precoPoint")
-	@NumericField(forField = "precoPoint")
-	// @FieldBridge(impl = BigDecimalBridge.class)
+	@NumericField
 	@FieldBridge(impl = BigDecimalNumericFieldBridge.class)
 	private BigDecimal preco;
 

@@ -12,16 +12,11 @@ import org.hibernate.search.bridge.spi.FieldType;
 public class BigDecimalNumericFieldBridge implements
 		MetadataProvidingFieldBridge, TwoWayFieldBridge {
 
-	private static final BigDecimal storeFactor =
-			BigDecimal.valueOf(100);
-
 	@Override
 	public void set(String name, Object value, Document document,
 			LuceneOptions luceneOptions) {
 		if (value != null) {
 			BigDecimal decimalValue = (BigDecimal) value;
-			// Long indexedValue = decimalValue
-			// .multiply(storeFactor).longValue();
 			Double indexedValue = decimalValue.doubleValue();
 			luceneOptions.addNumericFieldToDocument(name,
 					indexedValue, document);
@@ -32,7 +27,7 @@ public class BigDecimalNumericFieldBridge implements
 	public Object get(String name, Document document) {
 		String fromLucene = document.get(name);
 		BigDecimal storedBigDecimal = new BigDecimal(fromLucene);
-		return storedBigDecimal.divide(storeFactor);
+		return storedBigDecimal;
 	}
 
 	@Override
