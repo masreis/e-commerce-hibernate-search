@@ -41,7 +41,7 @@ public class ProdutoTest {
 		em.close();
 	}
 
-//	@Test
+	// @Test
 	public void testBuscaPelaEspec() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -61,7 +61,7 @@ public class ProdutoTest {
 		}
 	}
 
-//	@Test
+	// @Test
 	public void testBuscaPorIntervaloNRQ() {
 		NumericRangeQuery<Double> query =
 				NumericRangeQuery.newDoubleRange("preco",
@@ -78,7 +78,7 @@ public class ProdutoTest {
 		System.out.println("==================");
 	}
 
-//	@Test
+	// @Test
 	public void testBuscaPorIntervaloAboveBelow() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -101,7 +101,7 @@ public class ProdutoTest {
 		System.out.println("==================");
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPorIntervaloFromTo() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -135,6 +135,28 @@ public class ProdutoTest {
 		System.out.println("Produtos:");
 		for (Produto p : lista) {
 			System.out.println(p.getNome());
+		}
+	}
+
+	@Test
+	public void testBuscaOperadorAnd() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query queryNome = qb.keyword().onField("nome")
+				.matching("xbox").createQuery();
+		Query queryData = qb.keyword().onField("dataAtualizacao")
+				.matching("2017-09-10").createQuery();
+		Query query = qb.bool().must(queryNome).must(queryData)
+				.createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos:");
+		for (Produto p : lista) {
+			System.out.println(p.getNome() + " - "
+					+ p.getDataAtualizacao());
 		}
 	}
 }
