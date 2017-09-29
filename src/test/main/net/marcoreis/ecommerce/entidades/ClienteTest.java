@@ -31,7 +31,7 @@ public class ClienteTest {
 		em.close();
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPeloNome() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -48,7 +48,7 @@ public class ClienteTest {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPelaDataLogin() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -69,7 +69,7 @@ public class ClienteTest {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPorEmailECpf() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -91,4 +91,42 @@ public class ClienteTest {
 		}
 	}
 
+	// @Test
+	public void testBuscaPorEmailOuCpf() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Cliente.class).get();
+		Query queryEmail = qb.keyword().onField("email")
+				.matching("fulano@abc.net").createQuery();
+		Query queryCpf = qb.keyword().onField("cpfCnpj")
+				.matching("1962149214").createQuery();
+		Query query = qb.bool().should(queryEmail)
+				.should(queryCpf).createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Cliente.class);
+		List<Cliente> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Clientes:");
+		for (Cliente c : lista) {
+			System.out.println(
+					c.getNome() + " - " + c.getUltimoLogin());
+		}
+	}
+
+	@Test
+	public void testBuscaPeloNomeParcial() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Cliente.class).get();
+		Query query = qb.keyword().wildcard().onField("nome")
+				.matching("marc*").createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Cliente.class);
+		List<Cliente> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Clientes:");
+		for (Cliente c : lista) {
+			System.out.println(c.getNome());
+		}
+	}
 }

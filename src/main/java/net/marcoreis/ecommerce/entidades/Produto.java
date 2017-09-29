@@ -1,6 +1,5 @@
 package net.marcoreis.ecommerce.entidades;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,15 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-<<<<<<< HEAD
-@Entity
-@NamedQueries({
-		@NamedQuery(name = "produto.consultaTotal", query = "select count(p) from Produto p"),
-		@NamedQuery(name = "produto.consultaPorDescricao", query = "select p from Produto p where p.descricao like :descricaoParcial"),
-		@NamedQuery(name = "produto.consultaPorIntervaloPreco", query = "select p from Produto p where p.preco >= ?1 and p.preco <= ?2") })
-public class Produto implements Serializable {
-	private static final long serialVersionUID = 3206252406240046848L;
-=======
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
@@ -53,7 +43,6 @@ import net.marcoreis.ecommerce.util.IPersistente;
 public class Produto implements IPersistente {
 	private static final long serialVersionUID =
 			3206252406240046848L;
->>>>>>> 6eb07e45198f33a0f11dcdd98a755324151e7d53
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,11 +70,6 @@ public class Produto implements IPersistente {
 	private byte[] especificacaoFabricante;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-<<<<<<< HEAD
-	@JoinTable(name = "ProdutoCategoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private Set<Categoria> categorias = new HashSet<Categoria>(
-			0);
-=======
 	@JoinTable(name = "ProdutoCategoria",
 			joinColumns = @JoinColumn(name = "produto_id"),
 			inverseJoinColumns = @JoinColumn(
@@ -93,7 +77,6 @@ public class Produto implements IPersistente {
 	@IndexedEmbedded
 	private Set<Categoria> categorias =
 			new HashSet<Categoria>(0);
->>>>>>> 6eb07e45198f33a0f11dcdd98a755324151e7d53
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Field(store = Store.YES)

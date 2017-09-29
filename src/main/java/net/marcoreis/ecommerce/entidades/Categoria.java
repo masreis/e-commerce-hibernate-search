@@ -1,7 +1,5 @@
 package net.marcoreis.ecommerce.entidades;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +12,21 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
+import net.marcoreis.ecommerce.util.IPersistente;
+
 @Entity
 @Indexed
-@NamedQuery(name = "categoria.consultaPeloNome", query = "select c from Categoria c where c.nome like :nome")
-public class Categoria implements Serializable {
-	private static final long serialVersionUID = 6833139035296224500L;
+@NamedQuery(name = "categoria.consultaPeloNome",
+		query = "select c from Categoria c where c.nome like :nome")
+public class Categoria implements IPersistente {
+	private static final long serialVersionUID =
+			6833139035296224500L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+	@Field(index = Index.YES, analyze = Analyze.YES,
+			store = Store.YES)
 	private String nome;
 
 	public Long getId() {

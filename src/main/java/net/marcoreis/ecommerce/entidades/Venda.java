@@ -1,6 +1,5 @@
 package net.marcoreis.ecommerce.entidades;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-<<<<<<< HEAD
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
@@ -26,14 +24,6 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 
-@Entity
-@Indexed
-public class Venda implements Serializable {
-	private static final long serialVersionUID = -4519913495960906821L;
-
-=======
-import org.hibernate.search.annotations.Indexed;
-
 import net.marcoreis.ecommerce.util.IPersistente;
 
 @Entity
@@ -41,12 +31,12 @@ import net.marcoreis.ecommerce.util.IPersistente;
 public class Venda implements IPersistente {
 	private static final long serialVersionUID =
 			-4519913495960906821L;
->>>>>>> 6eb07e45198f33a0f11dcdd98a755324151e7d53
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
+	@Field(index = Index.YES, analyze = Analyze.NO,
+			store = Store.YES)
 	@DateBridge(resolution = Resolution.MINUTE)
 	private Date data;
 
@@ -56,9 +46,11 @@ public class Venda implements IPersistente {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL,
+			fetch = FetchType.EAGER)
 	@JoinColumn(name = "venda_id")
-	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+	private List<ItemVenda> itensVenda =
+			new ArrayList<ItemVenda>();
 
 	private Boolean ativo;
 
