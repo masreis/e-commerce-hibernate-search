@@ -27,13 +27,14 @@
 			<p:panel header="Produto"
 				style="margin-left: 14%; margin-right: 14%;">
 
-				<h:inputHidden value="#{produtoBean.produto.id}"
-					rendered="#{produtoBean.produto.id > 0}" />
+				<h:inputHidden value="#{produtoBean.produto.id}" />
 
 				<p:panelGrid columns="2">
 
 					<p:outputLabel value="ID:" />
 					<p:inputText value="#{produtoBean.produto.id}" disabled="true" />
+
+					<!-- rendered="#{produtoBean.produto.id > 0} -->
 
 					<p:outputLabel value="Nome:" />
 					<p:inputText value="#{produtoBean.produto.nome}" size="50"
@@ -51,7 +52,7 @@
 					</p:inputText>
 
 					<p:outputLabel value="Descrição:" />
-					<p:inputTextarea value="#{produtoBean.produto.descricao}" cols="50" />
+					<p:inputTextarea value="#{produtoBean.produto.descricao}" cols="50"/>
 
 					<p:outputLabel value="Arquivo da especificação do fabricante" />
 					<p:fileUpload value="#{produtoBean.especificacaoFabricante}"
@@ -74,8 +75,7 @@
 					</p:graphicImage>
 
 					<p:outputLabel value="Categoria:" />
-					<p:selectOneMenu value="#{produtoBean.produto.categorias}"
-						required="true" requiredMessage="Informe a categoria do produto">
+					<p:selectOneMenu >
 						<f:selectItem itemLabel="" itemValue="" />
 						<f:selectItems value="#{categoriaBean.categorias}" var="item"
 							itemLabel="#{item.nome}" itemValue="#{item}" />

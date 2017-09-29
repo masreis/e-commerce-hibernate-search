@@ -1,5 +1,7 @@
 package net.marcoreis.ecommerce.controlador;
 
+import java.util.Date;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,9 +14,10 @@ import net.marcoreis.ecommerce.negocio.ClienteService;
 @SessionScoped
 @ManagedBean
 public class LoginBean extends BaseBean {
-	private static final long serialVersionUID = 4169068378414919948L;
-	protected static final Logger logger = Logger
-			.getLogger(LoginBean.class);
+	private static final long serialVersionUID =
+			4169068378414919948L;
+	protected static final Logger logger =
+			Logger.getLogger(LoginBean.class);
 	private boolean loggedIn;
 	private ClienteService clienteService = new ClienteService();
 
@@ -24,6 +27,8 @@ public class LoginBean extends BaseBean {
 		if (cliente != null) {
 			setCliente(cliente);
 			setLoggedIn(true);
+			cliente.setUltimoLogin(new Date());
+			clienteService.salvar(cliente);
 			return "inicio";
 		} else {
 			setLoggedIn(false);

@@ -2,6 +2,7 @@ package net.marcoreis.ecommerce.controlador;
 
 import java.io.ByteArrayInputStream;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -20,9 +21,10 @@ import net.marcoreis.ecommerce.negocio.ProdutoService;
 @ViewScoped
 @ManagedBean
 public class ProdutoBean extends BaseBean {
-	private static final long serialVersionUID = -6475971812078805662L;
-	private static Logger logger = Logger
-			.getLogger(ProdutoBean.class);
+	private static final long serialVersionUID =
+			-6475971812078805662L;
+	private static Logger logger =
+			Logger.getLogger(ProdutoBean.class);
 	private Produto produto;
 	private ProdutoService produtoService = new ProdutoService();
 	private Collection<Produto> produtos;
@@ -35,9 +37,7 @@ public class ProdutoBean extends BaseBean {
 
 	@PostConstruct
 	public void init() {
-		logger.info("=> init()");
 		produto = new Produto();
-		// produto.setCategoria(new Categoria());
 		carregarProdutos();
 	}
 
@@ -46,7 +46,6 @@ public class ProdutoBean extends BaseBean {
 	}
 
 	public void setProduto(Produto produto) {
-		logger.info("=> setProduto - " + produto);
 		this.produto = produto;
 	}
 
@@ -60,7 +59,6 @@ public class ProdutoBean extends BaseBean {
 
 	public void salvar() {
 		try {
-			//
 			if (getEspecificacaoFabricante() != null
 					&& getEspecificacaoFabricante()
 							.getSize() > 0) {
@@ -69,13 +67,12 @@ public class ProdutoBean extends BaseBean {
 								.getInputstream());
 				getProduto().setEspecificacaoFabricante(dados);
 			}
-			//
 			if (getFoto() != null && getFoto().getSize() > 0) {
 				byte[] dados = IOUtils
 						.toByteArray(getFoto().getInputstream());
 				// getProduto().setFoto(dados);
 			}
-			//
+			getProduto().setDataAtualizacao(new Date());
 			produtoService.salvar(getProduto());
 			infoMsg(MENSAGEM_SUCESSO_GRAVACAO);
 		} catch (Exception e) {
@@ -93,7 +90,8 @@ public class ProdutoBean extends BaseBean {
 	}
 
 	public String editar(Produto produto) {
-		return "produto?faces-redirect=true";
+		this.produto = produto;
+		return "produto?faces-redirect=true&amp;includeViewParams=true";
 	}
 
 	public void excluir(Produto produto) {

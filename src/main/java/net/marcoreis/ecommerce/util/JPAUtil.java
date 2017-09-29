@@ -9,8 +9,13 @@ import org.apache.log4j.Logger;
 public class JPAUtil {
 	private static EntityManagerFactory emf = null;
 	private static JPAUtil instance;
+<<<<<<< HEAD
 	private static Logger logger = Logger
 			.getLogger(JPAUtil.class);
+=======
+	private static Logger logger =
+			Logger.getLogger(JPAUtil.class);
+>>>>>>> 6eb07e45198f33a0f11dcdd98a755324151e7d53
 
 	static {
 		instance = new JPAUtil();
