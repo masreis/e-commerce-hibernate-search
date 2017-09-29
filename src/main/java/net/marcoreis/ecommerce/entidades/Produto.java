@@ -1,5 +1,6 @@
 package net.marcoreis.ecommerce.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -20,16 +21,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import net.marcoreis.ecommerce.util.IPersistente;
-
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "produto.consultaTotal", query = "select count(p) from Produto p"),
 		@NamedQuery(name = "produto.consultaPorDescricao", query = "select p from Produto p where p.descricao like :descricaoParcial"),
 		@NamedQuery(name = "produto.consultaPorIntervaloPreco", query = "select p from Produto p where p.preco >= ?1 and p.preco <= ?2") })
-public class Produto implements IPersistente {
-	private static final long serialVersionUID =
-			3206252406240046848L;
+public class Produto implements Serializable {
+	private static final long serialVersionUID = 3206252406240046848L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +44,8 @@ public class Produto implements IPersistente {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ProdutoCategoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private Set<Categoria> categorias =
-			new HashSet<Categoria>(0);
+	private Set<Categoria> categorias = new HashSet<Categoria>(
+			0);
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;

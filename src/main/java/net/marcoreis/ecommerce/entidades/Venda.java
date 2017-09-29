@@ -1,5 +1,6 @@
 package net.marcoreis.ecommerce.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,24 +17,37 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import net.marcoreis.ecommerce.util.IPersistente;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
 
 @Entity
-public class Venda implements IPersistente {
-	private static final long serialVersionUID =
-			-4519913495960906821L;
+@Indexed
+public class Venda implements Serializable {
+	private static final long serialVersionUID = -4519913495960906821L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
+	@DateBridge(resolution = Resolution.MINUTE)
 	private Date data;
+
 	@ManyToOne
 	private Cliente cliente;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "venda_id")
-	private List<ItemVenda> itensVenda =
-			new ArrayList<ItemVenda>();
+	private List<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
+
 	private Boolean ativo;
 
 	public void setId(Long id) {

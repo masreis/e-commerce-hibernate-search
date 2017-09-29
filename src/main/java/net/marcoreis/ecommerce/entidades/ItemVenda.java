@@ -1,5 +1,6 @@
 package net.marcoreis.ecommerce.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -9,10 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import net.marcoreis.ecommerce.util.IPersistente;
-
 @Entity
-public class ItemVenda implements IPersistente {
+public class ItemVenda implements Serializable {
 	private static final long serialVersionUID = 8776394077625490231L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +23,8 @@ public class ItemVenda implements IPersistente {
 	@Column(precision = 10, scale = 2)
 	private BigDecimal valorTotal;
 	private Integer quantidade;
-//	@ManyToOne
-//	private Venda venda;
+	// @ManyToOne
+	// private Venda venda;
 
 	public void setId(Long id) {
 		this.id = id;
@@ -67,11 +66,11 @@ public class ItemVenda implements IPersistente {
 		return quantidade;
 	}
 
-//	public void setVenda(Venda venda) {
-//		this.venda = venda;
-//	}
-//
-//	public Venda getVenda() {
-//		return venda;
-//	}
+	// public void setVenda(Venda venda) {
+	// this.venda = venda;
+	// }
+	//
+	// public Venda getVenda() {
+	// return venda;
+	// }
 }
