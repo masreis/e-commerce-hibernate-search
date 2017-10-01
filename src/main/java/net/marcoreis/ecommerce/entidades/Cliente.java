@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DateBridge;
@@ -37,6 +39,7 @@ public class Cliente implements IPersistente {
 	@Field(store = Store.YES)
 	private String nome;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Field(analyze = Analyze.NO, store = Store.YES)
 	@DateBridge(resolution = Resolution.SECOND,
 			encoding = EncodingType.STRING)

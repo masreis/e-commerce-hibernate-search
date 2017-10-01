@@ -20,11 +20,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.lucene.analysis.br.BrazilianAnalyzer;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.EncodingType;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.NumericField;
+import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TikaBridge;
 
@@ -40,6 +46,7 @@ import net.marcoreis.ecommerce.util.IPersistente;
 				query = "select p from Produto p where p.descricao like :descricaoParcial"),
 		@NamedQuery(name = "produto.consultaPorIntervaloPreco",
 				query = "select p from Produto p where p.preco >= ?1 and p.preco <= ?2") })
+@Analyzer(impl = BrazilianAnalyzer.class)
 public class Produto implements IPersistente {
 	private static final long serialVersionUID =
 			3206252406240046848L;
@@ -79,7 +86,9 @@ public class Produto implements IPersistente {
 			new HashSet<Categoria>(0);
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Field(store = Store.YES)
+	@Field(analyze = Analyze.NO, store = Store.YES)
+	@DateBridge(resolution = Resolution.SECOND,
+			encoding = EncodingType.STRING)
 	private Date dataAtualizacao;
 
 	public Long getId() {

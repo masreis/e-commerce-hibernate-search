@@ -138,7 +138,7 @@ public class ProdutoTest {
 		}
 	}
 
-	@Test
+	// @Test
 	public void testBuscaOperadorAnd() {
 		QueryBuilder qb =
 				ftem.getSearchFactory().buildQueryBuilder()
@@ -157,6 +157,58 @@ public class ProdutoTest {
 		for (Produto p : lista) {
 			System.out.println(p.getNome() + " - "
 					+ p.getDataAtualizacao());
+		}
+	}
+
+	// @Test
+	public void testBuscaFuzzy() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query query = qb.keyword().fuzzy()
+				.withEditDistanceUpTo(1).onField("nome")
+				.matching("xbox").createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos [" + lista.size() + "]:");
+		for (Produto p : lista) {
+			System.out.println(p.getNome());
+		}
+	}
+
+	// @Test
+	public void testBuscaPorProximidade() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query query = qb.phrase().withSlop(3).onField("nome")
+				.sentence("xbox war").createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos [" + lista.size() + "]:");
+		for (Produto p : lista) {
+			System.out.println(p.getNome());
+		}
+	}
+
+	@Test
+	public void testBuscaPeloNome() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Produto.class).get();
+		Query query = qb.keyword().onField("nome")
+				.matching("jogo").createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Produto.class);
+		List<Produto> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Produtos [" + lista.size() + "]:");
+		for (Produto p : lista) {
+			System.out.println(p.getNome());
 		}
 	}
 }

@@ -31,7 +31,7 @@ public class CategoriaTest {
 		em.close();
 	}
 
-	@Test
+	// @Test
 	public void testBuscaPeloNome() {
 		// QueryBuilder
 		QueryBuilder qb =
@@ -39,13 +39,30 @@ public class CategoriaTest {
 						.forEntity(Categoria.class).get();
 		// Query
 		Query query = qb.keyword().onField("nome")
-				.matching("jogos").createQuery();
+				.matching("xbox").createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Categoria.class);
 		// Resultado da consulta
 		List<Categoria> lista = ftQuery.getResultList();
 		Assert.assertTrue(lista.size() > 0);
 		System.out.println("Categorias:");
+		for (Categoria c : lista) {
+			System.out.println(c.getNome());
+		}
+	}
+
+	@Test
+	public void testBuscaPorFrase() {
+		QueryBuilder qb =
+				ftem.getSearchFactory().buildQueryBuilder()
+						.forEntity(Categoria.class).get();
+		Query query = qb.phrase().onField("nome")
+				.sentence("xbox one").createQuery();
+		FullTextQuery ftQuery =
+				ftem.createFullTextQuery(query, Categoria.class);
+		List<Categoria> lista = ftQuery.getResultList();
+		Assert.assertTrue(lista.size() > 0);
+		System.out.println("Categoria:");
 		for (Categoria c : lista) {
 			System.out.println(c.getNome());
 		}
