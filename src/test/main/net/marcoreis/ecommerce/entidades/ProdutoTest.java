@@ -48,7 +48,7 @@ public class ProdutoTest {
 						.forEntity(Produto.class).get();
 		Query query =
 				qb.keyword().onField("especificacaoFabricante")
-						.ignoreFieldBridge().matching("sentença")
+						.ignoreFieldBridge().matching("xbox")
 						.createQuery();
 		FullTextQuery ftQuery =
 				ftem.createFullTextQuery(query, Produto.class);
